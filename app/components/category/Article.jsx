@@ -24,12 +24,11 @@ const article = async ({id}) => {
          <h1 className='article-title'>{article.title}</h1>
          <div className='author'>
          <Avatar size="lg">{article.author}</Avatar>
-         <h3>publishedAt : {article.publishedAt.toString().slice(0,30)}</h3>
-         <h3>publishedAt : {article.id}</h3>
+         <h3>نشر في تاريخ : {article.publishedAt.toLocaleString('en-US')}</h3>
          </div>
          <div>
          <img  className='article-image' src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="" />
-         <p>فركمنة كن جينتم</p>
+         <p></p>
          </div>
          <section className='article-content'>
            <p  style={{ whiteSpace: 'pre-line' }}>

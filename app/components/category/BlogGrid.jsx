@@ -1,26 +1,11 @@
 import React from 'react'
 import BlogPost from './BlogPost'
 import { Stack } from '@mui/joy';
-import connect from "@/app/utils/connect";
-import Article from "@/app/models/articleModel";
+import { GetArticlesCategory } from '@/app/utils/fetchData';
 
-async function getData(category) {
-  try {
-    await connect();
-    console.log('Loading....');
-    const allArticle = await Article.find({category: category}).sort({publishedAt: -1})
-    console.log('articles fetched')
-    return allArticle;
-    } catch (error) {
-        console.error('database error : ',error);
-        throw new Error(error);
-    }
-  }
-  
+
 const BlogGrid = async ({title, category}) => {
-  const articles = await getData(category);
- 
-
+  const articles = await GetArticlesCategory(category);
   return (
     <section className='container article-list'>
       <h2>{title}</h2>

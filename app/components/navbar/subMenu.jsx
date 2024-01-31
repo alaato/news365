@@ -20,11 +20,14 @@ const SubMenu = ({sub, anchorSub, handleCloseSub}) => {
               open={anchorSub? true: false}
               onClose={handleCloseSub}
             >
-              {sub.map((sub) => (
-                <MenuItem key={sub.id} onClick={handleCloseSub}>
-                  <Link  href = {'/news/' + sub.category}>{sub.category}</Link>
-                </MenuItem>
-              ))}
+              {sub.map((sub, i) =>{
+              if(sub.category !== "تحقيقات" && sub.category !== "صحف و مجلات")
+                return (
+                  <MenuItem key={i} onClick={handleCloseSub}>
+                    <Link href = {'/news/' + sub.category}>{sub.category}</Link>
+                  </MenuItem>
+                )
+              } )}
 </Menu>
   )
 }

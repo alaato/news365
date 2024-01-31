@@ -30,7 +30,8 @@
         color: black;
 
  }
- .warning
+ .form .warning
  {
   color: red !important;
+  height: 26px !important;
  }

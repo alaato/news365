@@ -13,7 +13,7 @@ import ThemeRegistry from "./Themereg"
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ar">
+          <html lang="ar">
       <body >
         <div id="root">
           <Nav/>
@@ -23,5 +23,6 @@ export default function RootLayout({ children }) {
         </div>
         </body>
     </html>
+
   )
 }

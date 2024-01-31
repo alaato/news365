@@ -135,7 +135,8 @@ a
 }
 .article-image 
 {
-    width: 100%;
+  margin: 16px;
+  width: 100%;
 }
 .article-content  p
 {

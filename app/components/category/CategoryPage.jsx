@@ -5,12 +5,14 @@ import "./MainPage.css"
 const { translate } = require('bing-translate-api');
 import { Suspense } from 'react';
 import {HeroSkeleton, BlogGridSkeleton} from '../skeleton/skeletons';
+import {fetchLatestCategory} from '@/app/utils/fetchData'
 
 const CategoryPage = async ({category}) => {
+  const featured = await fetchLatestCategory(category);
   return (
   <main className='main container'>
     <Suspense fallback = {<HeroSkeleton/>}>
-    <Hero h2 = {"أخر " +(category == 'وسائط'? "مصورة": category )} />
+    <Hero article={featured} h2 = {"أخر " +(category == 'وسائط'? "مصورة": category )} />
     </Suspense>
     <Suspense fallback = {<BlogGridSkeleton/>}>
     <BlogGrid category={category} />

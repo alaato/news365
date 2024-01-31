@@ -4,11 +4,11 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 
 
-export default function FeaturedPost({sx, article}) {
+export default function FeaturedPost({sx, classname, article}) {
   const {title, id, category} = article;
 
   return (
-    <Card sx = {sx} >
+    <Card sx={sx} className = {classname}>
       <CardCover>
         <img
           src="https://static.vecteezy.com/system/resources/thumbnails/006/299/370/original/world-breaking-news-digital-earth-hud-rotating-globe-rotating-free-video.jpg"

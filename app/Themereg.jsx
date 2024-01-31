@@ -11,6 +11,8 @@ import {
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import theme from './theme'; // OPTIONAL
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
@@ -18,7 +20,10 @@ export default function ThemeRegistry(props) {
   const { options, children } = props;
 
   const [{ cache, flush }] = React.useState(() => {
-    const cache = createCache(options);
+    const cache = createCache(options, {
+      key: 'muirtl',
+      stylisPlugins: [prefixer, rtlPlugin],
+    });
     cache.compat = true;
     const prevInsert = cache.insert;
     let inserted = [];

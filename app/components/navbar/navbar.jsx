@@ -53,18 +53,18 @@ function Navbar() {
               display: { xs: "none", md: "flex" }
             }}
           >
-            {pages.map((page, i) => (
-              page === "أخبار"?  <button className = "nav-link"
-              key={page}
-              onClick={handleOpenSub}
-              title = "أخبار"
-            >
-              أخبار
-            </button>
-            :
-            <Link className="nav-link" href={'/'+pagesEn[i]}>{page}</Link>
-
-            ))}
+            {pages.map((page, i) => {
+              if(page !== "تحقيقات" && page !== "صحف و مجلات")
+                return(
+                  page === "أخبار"?  <button className = "nav-link" key={page} onClick={handleOpenSub} title = "أخبار">أخبار</button>
+                :
+                <Link key={i} className="nav-link" href={'/'+pagesEn[i]}>{page}</Link>
+                )
+                else
+                  return (
+                  <Link key={i} className="nav-link" href={'/news/'+page}>{page}</Link>
+                  )
+              })}
             <SubMenu sub = {sub} handleCloseSub={handleCloseSub} anchorSub={anchorSub}/>
           </Box>
         </Toolbar>
