@@ -6,13 +6,14 @@ import FormLabel from '@mui/joy/FormLabel';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
 import Key from '@mui/icons-material/Key';
-import styles from "../../styles/subscribe.module.css"
+import styles from "@/app/styles/subscribe.module.css"
 import React, { useState } from "react";
 import Button from "@mui/joy/Button";
 import Alert from "@/app/components/General/Alert";
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { AlertContext } from "@/app/components/General/alertContext";
+import { useRouter } from "next/navigation";
 
 
 
@@ -24,7 +25,7 @@ const schema = yup
   .required()
 
 export default function Login() {
-
+  const router = useRouter()
   const {handleSubmit, register , formState: { errors, isSubmitSuccessful }, reset } = useForm({resolver: yupResolver(schema)});
   const [isAlert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -51,6 +52,7 @@ export default function Login() {
         setAlert(true);
         setMessage(responseBody.message);
         setLoading(false);
+        // router.push('/')
         }
       catch (error) {
         setAlert(true);
@@ -68,7 +70,7 @@ export default function Login() {
    <section className= {styles.containerForm}>
     <h1 className="header"> تسجيل</h1>
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-       <Stack spacing={1}>
+       <Stack>
 
         <FormControl>
           <FormLabel>البريد الالكتروني</FormLabel>
@@ -76,7 +78,7 @@ export default function Login() {
           {errors.email && <FormHelperText className ={styles.warning}>{errors.email.message}</FormHelperText>}
         </FormControl>
 
-        <FormControl>
+        <FormControl sx={{marginTop: '1rem'}}>
           <FormLabel>الرمز السري</FormLabel>
           <Input
           error={Boolean(errors.password)}
@@ -88,7 +90,7 @@ export default function Login() {
           {errors.password && <FormHelperText className ={styles.warning}>{errors.password.message}</FormHelperText>}
         </FormControl>
 
-      <Button loading={isLoading} className="button-28"  type="submit"> دخول</Button>
+      <Button sx={{marginTop: '1.5rem', width:"120px"}} loading={isLoading} className="button-28"  type="submit"> دخول</Button>
       </Stack>
     </form>
     </section>

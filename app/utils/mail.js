@@ -13,7 +13,14 @@ const sendEmail = async (email, subject, html) => {
           pass: process.env.ZOHO_PASSWORD,
         },
       });
-    
+  //   const transporter = nodemailer.createTransport({
+  //     host: 'smtp.ethereal.email',
+  //     port: 587,
+  //     auth: {
+  //         user: 'paula.gottlieb41@ethereal.email',
+  //         pass: 'JPxPjFeuWxHKT6rrda'
+  //     }
+  // });
     var mailOptions = {
       from: process.env.ZOHO_EMAIL,
       to: email,

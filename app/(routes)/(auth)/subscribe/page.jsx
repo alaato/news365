@@ -5,7 +5,7 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
-import styles from "../../styles/subscribe.module.css"
+import styles from "@/app/styles/subscribe.module.css"
 import { useRouter } from "next/navigation";
 import { Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"

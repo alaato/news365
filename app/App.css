@@ -23,7 +23,9 @@
   max-width: 1200px;
   margin-bottom: 1rem;
 }
-
+.fullview {
+height: 50vh;
+}
 .flex
 {
   display: flex;
