@@ -2,7 +2,6 @@ import React from 'react'
 import Typography from "@mui/material/Typography";
 import "./navbarHeader.css"
 import Link from 'next/link';
-import {RegisterLink, LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
 
 
 
