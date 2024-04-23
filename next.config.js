@@ -1,6 +1,11 @@
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 /** @type {import('next').NextConfig} */
 
-module.exports = {
+const nextConfig  = {
     webpack: (config) => {
       config.resolve.fallback = {
         "mongodb-client-encryption": false ,
@@ -23,3 +28,4 @@ module.exports = {
     }
   
 }
+module.exports = withBundleAnalyzer(nextConfig)
