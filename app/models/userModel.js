@@ -31,6 +31,7 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now() + 7200000 
     },
+    Avatar : String,
 
 })
 const User = mongoose.models.User || mongoose.model('User', userSchema);
