@@ -1,4 +1,3 @@
-export async function GET(request, { params }) {
-    // we will use params to access the data passed to the dynamic route
+export async function GET() {
     return new Response("This is a new API route");
 }

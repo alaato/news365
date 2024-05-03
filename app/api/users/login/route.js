@@ -2,7 +2,7 @@ import connect from "@/app/utils/connect";
 import User from "@/app/models/userModel";
 import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs"
-import jwt from "jsonwebtoken"
+import { makeToken } from "../../../utils/tokenUtils";
 
 export async function POST(req)
 {
@@ -11,23 +11,26 @@ export async function POST(req)
         const body = await req.json();
         const {email, password} = body
         const user = await User.findOne({email});
+        const match = await bcryptjs.compare(password, user.password)
         if(!user)
             return NextResponse.json({message: "لا يوجد مستخدم بهذا الايميل"}, {status: 400});
-        const match = await bcryptjs.compare(password, user.password)
         if(!match)
             return NextResponse.json({message: "البيانات خطأ, الرجاء ادخال بيانات  صحيحة"}, {status: 400});
         if(!user.verified)
             return NextResponse.json({message: "الرجاء تفعيل الحساب"}, {status: 400});
 
         const tokenData = {
+            id: user.id,
             username : user.username,
-            email : user.email,
-            verified : user.verified
+            verified : user.verified,
+            role : user.role,
         }
-        const jwtToken = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {expiresIn:"3 days"})
+        const threeDay = Date.now() + 7 * 24 * 60 * 60 * 1000
+        const jwtToken = await makeToken(tokenData)
         const response =  NextResponse.json({message: "تم تاكيد المستخدم"}, {status: 200});
-        response.cookies.set('jwtToken', jwtToken, {httpOnly: true, secure: true})
-        
+        response.cookies.set('session', jwtToken, {httpOnly: true, secure: true, expires: threeDay,
+            sameSite: "lax",
+            path: "/",})
         return response;
     } catch (error) {
         console.log(error);

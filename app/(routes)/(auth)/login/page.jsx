@@ -33,11 +33,11 @@ export default function Login() {
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = async data =>{
-    const body = JSON.stringify(data);
+    const bodyJson = JSON.stringify(data);
     const response = await fetch('/api/users/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: body
+          body: bodyJson
         })
     const responseBody = await response.json();
 
@@ -48,11 +48,11 @@ export default function Login() {
         if(!response.ok)
           setStatus("error")
         else 
-        setStatus("success");
+          setStatus("success");
         setAlert(true);
         setMessage(responseBody.message);
         setLoading(false);
-        // router.push('/')
+        router.push(`/`)
         }
       catch (error) {
         setAlert(true);

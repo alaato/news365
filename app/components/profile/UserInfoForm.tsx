@@ -18,52 +18,50 @@ type Inputs = {
   Avatar: File
 }
 
-const UserInfoForm = () => {
-    const {register, handleSubmit, formState: { errors }} = useForm({resolver: yupResolver(Formschema)})
-    const form = useRef<HTMLFormElement>(null);
-    const onSubmit: SubmitHandler<Inputs> = async() =>{
-      const formData = new FormData(form.current);
-      const Imageurl = await UploadImageToCloudinary(formData)
-      await SaveAvatarInDatabase(Imageurl, "646846");
+const UserInfoForm = ({firstName, lastName, email }) => {
+  const {register, handleSubmit, formState: { errors }} = useForm({resolver: yupResolver(Formschema)})
+  const form = useRef<HTMLFormElement>(null);
+  const onSubmit: SubmitHandler<Inputs> = async() =>{
+    const formData = new FormData(form.current);
+    const Imageurl = await UploadImageToCloudinary(formData)
+    await SaveAvatarInDatabase(Imageurl, "646846");
     }
-
   return (
     <form encType="multipart/form-data" ref={form} style={{flexGrow:1}} onSubmit={handleSubmit(onSubmit)}>
-
-    <Stack className="Presonal_info"
-      direction={{md:"row"}}
-      spacing={1}
-      sx={{gap : "1rem",  display:'flex', my: 1}}
-      useFlexGap
-    >
-      <UploadImage register ={register}/>
-      <Stack  sx={{flexGrow: 1}} useFlexGap spacing={1}>
-        <FormControl>
-            <FormLabel>الاسم</FormLabel>
-            <Input error={!!errors.FirstName} {...register("FirstName")}  placeholder="الاسم" />
-            {errors.FirstName && <FormHelperText >{errors.FirstName.message}</FormHelperText>}
-          </FormControl>
-
+      <Stack className="Presonal_info"
+        direction={{sm:"row"}}
+        spacing={1}
+        sx={{gap : "1rem",  display:'flex', my: 1}}
+        useFlexGap
+      >
+        <UploadImage register ={register}/>
+        <Stack  sx={{flexGrow: 1}} useFlexGap spacing={1}>
           <FormControl>
-            <FormLabel>اللقب</FormLabel>
-            <Input error={!!errors.LastName} {...register("LastName" )} placeholder="اللقب" />
-            {errors.LastName && <FormHelperText >{errors.LastName.message}</FormHelperText>}
-          </FormControl>
+              <FormLabel>الاسم</FormLabel>
+              <Input error={!!errors.FirstName} {...register("FirstName")}  placeholder={firstName} />
+              {errors.FirstName && <FormHelperText >{errors.FirstName.message}</FormHelperText>}
+            </FormControl>
 
-          <FormControl >
-            <FormLabel>البريد الالكتروني</FormLabel>
-            <Input  error={!!errors.Email}  type="email" startDecorator={<EmailRoundedIcon />}
-              placeholder="البريد الالكتروني"
-              sx={{ flexGrow: 1 }}
-              {...register("Email",)}
-            />
-              {errors.Email && <FormHelperText >{errors.Email.message}</FormHelperText>}
-          </FormControl>
+            <FormControl>
+              <FormLabel>اللقب</FormLabel>
+              <Input error={!!errors.LastName} {...register("LastName" )} placeholder={lastName}/>
+              {errors.LastName && <FormHelperText >{errors.LastName.message}</FormHelperText>}
+            </FormControl>
 
-          <FormAction/>
+            <FormControl >
+              <FormLabel>البريد الالكتروني</FormLabel>
+              <Input  error={!!errors.Email}  type="email" startDecorator={<EmailRoundedIcon />}
+                placeholder={email}
+                sx={{ flexGrow: 1 }}
+                {...register("Email",)}
+              />
+                {errors.Email && <FormHelperText >{errors.Email.message}</FormHelperText>}
+            </FormControl>
 
-        </Stack>
-    </Stack>
+            <FormAction/>
+
+          </Stack>
+      </Stack>
     </form>
   )
 }

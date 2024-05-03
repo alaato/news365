@@ -38,7 +38,7 @@ export default function Hamburger({sub, pages, handleOpenSub,
               fontWeight="lg"
               sx={{ cursor: 'pointer' }}
             >
-              Close
+            Close
             </Typography>
             <ModalClose id="close-icon" sx={{ position: 'initial' }} />
           </Box>
@@ -54,10 +54,14 @@ export default function Hamburger({sub, pages, handleOpenSub,
             {
                 pages.map((page, i)=>
                     <ListItemButton key={page} sx = {{width : 'auto'}} onClick={pagesEn[i] === "news" ? handleOpenSub : undefined}>
-                    <Link key={page} href={pagesEn[i] === "news" ? "" : '/'+pagesEn[i]}>{page}</Link>
+                      <Link key={page} href={pagesEn[i] === "news" ? "" : '/'+pagesEn[i]}>{page}</Link>
                     </ListItemButton>
                     )
             }
+                  <ListItemButton sx={{'&:hover':{cursor: "default", backgroundColor: "whi"}}}>
+                    <Link className='button-28' href="/signup"> اشترك</Link>
+                    <Link className='button-28' href="/login"> تسجيل الدخول</Link>
+                  </ListItemButton>
           </List>
         </Drawer>
         <SubMenu sub = {sub} handleCloseSub={handleCloseSub} anchorSub={anchorSub}/>

@@ -8,7 +8,7 @@ export default  function error({ error, reset }) {
   return (
     <div className='container flex-col'>
       <h2>هناك خطأ ما</h2>
-      <Image src='/sad.svg' width="256" height="256"></Image>
+      <Image src='/sad.svg' width="256" height="256" alt=''></Image>
       <Link href="/">عد الى الصفحة الرئيسية</Link>
     </div>
   )

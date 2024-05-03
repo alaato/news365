@@ -16,15 +16,12 @@ export async function POST(req)
             throw new Error
         const {username, email, password} = body
         const isEmail = await User.findOne({email})
-        // const isUsername = await User.findOne({username}) 
         if(isEmail)
             return NextResponse.json({message: " يوجد حساب بهذا الايميل "}, {status: 400});
-        // if(isUsername)
-        //     return NextResponse.json({message: "يوجد حساب بهذاالاسم "}, {status: 400});
         
         bcryptjs.genSalt(10, function(err, salt) {
-            bcryptjs.hash(password, salt, async function(err, hashpass) {
-                if (err) throw err;
+            try {
+                bcryptjs.hash(password, salt, async function(err, hashpass) {
                     const newUser = new User({
                         username: username,
                         password: hashpass,
@@ -32,13 +29,17 @@ export async function POST(req)
                         email: email,
                         verifiedToken: jwt.sign(email,'token'),
                         verifiedTokenExpires: Date.now() + 7200000
-                    })
-                    await newUser.save();
-                    const message = `http://localhost:3000/verify/${newUser.id}/${newUser.verifiedToken}`;
-                    const emailHtml = render(<Email url={message} username={newUser.username} />,   {pretty: true});
-                    sendEmail(newUser.email, "Verify Email", emailHtml)
-                    console.log(newUser)
-            });
+                        });
+                        await newUser.save();
+                        const message = `http://localhost:3000/verify/${newUser.id}/${newUser.verifiedToken}`;
+                        const emailHtml = render(<Email url={message} username={newUser.username} />,   {pretty: true});
+                        sendEmail(newUser.email, "Verify Email", emailHtml)
+                        console.log(newUser)
+                });
+            }
+           catch (err) {
+            throw err;
+           }
         })
         return NextResponse.json({message: " تم انشاء الحساب. الرجاء تفعيل الحساب من البريد الالكتروني "}, {status: 201});
     } catch (error) {

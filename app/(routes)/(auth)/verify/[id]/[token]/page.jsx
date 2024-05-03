@@ -6,7 +6,7 @@ import sendEmail from '@/app/utils/mail';
 import Email from '@/app/components/email';
 import { render } from '@react-email/render';
 
-export async function verifyEmail(params) {
+async function verifyEmail(params) {
   try{
     const {id, token} = params;
     connect();
@@ -19,16 +19,15 @@ export async function verifyEmail(params) {
       return {message:"لقد قمت بالفعل بتنشيط حسابك", ok: true}
     if(user.verifiedTokenExpires < Date.now())
       return {message : "لقد انتهت صلاحية الرمز المميز الخاص بك", ok: false};
-    if(user && token === user.verifiedToken)
-    {
+    if(user && token === user.verifiedToken){
       user.verified = true;
       await user.save();
-      const reponse = {
+      const response = {
         username: user.username,
         message : "تم تاكيد الحساب, يمكنك تسجيل الدخول الان",
         ok: true
       };
-      return reponse; 
+      return response; 
     }
   }
   catch(error){
@@ -36,7 +35,6 @@ export async function verifyEmail(params) {
     throw new Error
   }
 }
-
 export async function GenerateNewToken(id) {
    try {
     connect();
@@ -56,21 +54,18 @@ export async function GenerateNewToken(id) {
     return {message: "يوجد خطأ ما, حاول مرة أخرى", status: "error"};
   }
 }
+async function  GenerateNewTokenServerWrapper(){
+  "use server"
+  return await GenerateNewToken(params.id)
+}
 
 const verifyEmailPage = async ({params}) => {
   try {
-    
-  async function  serverFunction(){
-    "use server"
-    return await GenerateNewToken(params.id)
+      const verifiedData = await verifyEmail(params);
+      if(!verifiedData)
+        return new Error('somrthing failed');
+      return <VerifyEmailPage verified={verifiedData} GenerateNewToken={GenerateNewTokenServerWrapper} />;
   }
-  
-  const verifiedData = await verifyEmail(params);
-  if(!verifiedData)
-    return new Error('somrthing failed');
-  return (
-    <VerifyEmailPage verified={verifiedData} GenerateNewToken={serverFunction} />
-  );}
   catch (error) {
     console.log(error);
     throw error;

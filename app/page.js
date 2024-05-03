@@ -1,7 +1,7 @@
 import Home from "./components/home/Home"
 
-export default function page({children}) {
+export default function page() {
   return (
-<Home/>
+      <Home/>
       )
 }
