@@ -9,8 +9,10 @@ import Input from '@mui/joy/Input';
 import { Select, Textarea, Option } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
+import { getCategories } from '@/app/utils/fetchData';
 
-const CreatePostForm = ({props}) => {
+const CreatePostForm = async ({props}) => {
+	const categoris = await getCategories();
 	const router = useRouter();
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const onSubmit = async (data) => {
@@ -43,7 +45,7 @@ const CreatePostForm = ({props}) => {
 				<FormControl>
 					<FormLabel>الفئة</FormLabel>
 					<Select {...register("category")}>
-
+					
 					</Select>
 				</FormControl>
 

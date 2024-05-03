@@ -7,18 +7,9 @@ export async function  middleware(request: NextRequest) {
 	const isAuthenticated = session? true: false;
 	const currentPath = request.nextUrl.pathname;
 
-	if (isAuthenticated && (currentPath == "/login" || currentPath == "/signup"))
+	
+	if (!isAuthenticated)
 		return NextResponse.redirect(new URL("/", request.url));
-	if (!isAuthenticated && currentPath.startsWith("/profile"))
-		return NextResponse.redirect(new URL("/login", request.url));
-	if (currentPath.startsWith("/admin"))
-		{
-			if(!isAuthenticated)
-				return NextResponse.redirect(new URL("/", request.url));
-			const data = await getDataFromSession(session)
-				if(data)
-					return NextResponse.json({status: 401, message: "غير مصرح به، يرجى التحقق من أنك مؤلف"});
-		}
 }
 
 export const config = {
@@ -27,6 +18,6 @@ export const config = {
 		"/signup",
 		"/api/users",
 		"/profile/:path*",
-		"/admin/:path*",
+		"/createpost",
 	],
 };
