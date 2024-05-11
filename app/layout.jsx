@@ -14,9 +14,11 @@ import ThemeRegistry from "./Themereg"
 export default function RootLayout({ children }) {
   return (
     <html lang="ar">
+      <head>
+      </head>
         <body >
           <div id="root">
-            <Nav/>
+            {/* <Nav/> */}
             <ThemeRegistry options={{ key: 'joy' }}>
               {children}
             </ThemeRegistry>

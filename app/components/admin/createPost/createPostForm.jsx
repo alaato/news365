@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Stack from '@mui/joy/Stack';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -9,22 +9,22 @@ import Input from '@mui/joy/Input';
 import { Select, Textarea, Option } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
-import { getCategories } from '@/app/utils/fetchData';
+import Editor from '@/app/components/Tiptap/editor'
 
-const CreatePostForm = async ({props}) => {
-	const categoris = await getCategories();
+const CreatePostForm =  ({categories, author}) => {
 	const router = useRouter();
-	const { register, handleSubmit, formState: { errors } } = useForm();
+	const {control, register, handleSubmit, formState: { errors } } = useForm();
 	const onSubmit = async (data) => {
-		const response = await fetch('/api/admin/create', {
+		const response = await fetch('/api/admin/create/post', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data),
+			body: JSON.stringify({author ,...data}),
 		}
 		)
 		if (response.ok) {
 			const article = await response.json()
-			router.push(`/news/${article.category}/${article.id}`)
+			console.log(article)
+			// router.push(`/news/${article.category}/${article.id}`)
 		}
 	}
 	return (
@@ -36,16 +36,27 @@ const CreatePostForm = async ({props}) => {
 					{errors.title && <FormHelperText className={styles.warning}>{errors.title.message}</FormHelperText>}
 				</FormControl>
 
-				<FormControl>
+				{/* <FormControl>
 					<FormLabel>النص</FormLabel>
 					<Textarea minRows={10} placeholder="النص" {...register("content", { required: "يجب ادخال النص" })} />
 					{errors.content && <FormHelperText className={styles.warning}>{errors.content.message}</FormHelperText>}
-				</FormControl>
+				</FormControl> */}
+				 <Controller
+					render={({field}) => (
+						<Editor 
+							content={field.value} 
+							onChange={field.onChange}
+         		/>
+    )}
+    control={control}
+    name="editor"
+    defaultValue="" 
+ />
 
 				<FormControl>
 					<FormLabel>الفئة</FormLabel>
 					<Select {...register("category")}>
-					
+						{categories.map(category => <Option key={category} value={category}> {category} </Option>)}
 					</Select>
 				</FormControl>
 

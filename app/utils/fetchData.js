@@ -14,6 +14,19 @@ export async function getCategories() {
 		throw new Error(error);
 	}
 }
+export async function getCategoriesNames() {
+	try {
+		await connect();
+		const categories = await Category.find({},{category: 1,  _id: 0 })
+			.sort({ publishedAt: -1 })
+		const categoriesNames = categories.map(category => category.category)
+		return categoriesNames;
+
+	} catch (error) {
+		console.error("database error : ", error);
+		throw new Error(error);
+	}
+}
 export async function getCategory(category) {
 	try {
 		await connect();
