@@ -7,8 +7,11 @@ export async function  middleware(request: NextRequest) {
 	const isAuthenticated = session? true: false;
 	const currentPath = request.nextUrl.pathname;
 
-	
-	if (!isAuthenticated)
+	console.log(isAuthenticated)
+	console.log(currentPath)
+	if(isAuthenticated && (currentPath == "/login" || currentPath == "/signup" ))
+		return NextResponse.redirect(new URL("/", request.url));
+	if(!isAuthenticated && currentPath.startsWith("/admin"))
 		return NextResponse.redirect(new URL("/", request.url));
 }
 

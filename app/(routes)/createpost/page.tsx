@@ -5,7 +5,9 @@ import customError from "@/app/utils/customError"
 import { getDataFromSession } from "@/app/utils/tokenUtils"
 import { cookies } from "next/headers"
 import { sessionData } from "@/app/utils/intrfaces"
+import {getCategoriesNames } from "@/app/utils/fetchData"
 const page = async () => {
+  const categories = await getCategoriesNames();
   const session = cookies().get("session")?.value
   const userData = await getDataFromSession(session) as unknown as sessionData;
   if(!userData)
@@ -17,7 +19,7 @@ const page = async () => {
   return (
     <section className= {styles.containerForm} >
       <h1 className="header">لوحة المسؤول</h1>
-      <CreatePostForm props={""}/>
+      <CreatePostForm categories = {categories} Author= {userData.username}/>
     </section>
   )
 }

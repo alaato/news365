@@ -90,7 +90,7 @@ height: 50vh;
   color: white;
   cursor: pointer;
   font-size: 1.25rem;
-  height: 36px;
+  max-height: 36px;
   line-height: 27px;
   min-width: 54px;
   padding: 0 16px;
