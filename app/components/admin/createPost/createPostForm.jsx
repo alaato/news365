@@ -11,15 +11,15 @@ import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
 import Editor from '@/app/components/Tiptap/editor'
 import CloudUpload from '@/app/components/cloudinary/cloudUpload'
-const CreatePostForm =  ({categories, author}) => {
+const CreatePostForm = ({ categories, author }) => {
 	const router = useRouter();
-	const {control, register, handleSubmit, formState: { errors } } = useForm();
+	const { control, register, handleSubmit, formState: { errors } } = useForm();
 	const onSubmit = async (data) => {
 		const response = await fetch('/api/admin/create/post', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({author ,...data}),
-			}
+			body: JSON.stringify({ author, ...data }),
+		}
 		)
 		if (response.ok) {
 			const article = await response.json()
@@ -38,22 +38,25 @@ const CreatePostForm =  ({categories, author}) => {
 
 
 				<FormControl>
-					<FormLabel>الصورة</FormLabel>
-					<Input placeholder="رابط الصورة" {...register("img", { required: "يجب ادخال الصورة" })} />
+					<CloudUpload register={register}>او  يمكنك تحميل الصورة</CloudUpload>
 					{errors.img && <FormHelperText className={styles.warning}>{errors.img.message}</FormHelperText>}
-					<CloudUpload>او  يمكنك تحميل الصورة</CloudUpload>
 				</FormControl>
-				 <Controller
-				 	name = "content"
-					render={({field}) => (
-						<Editor 
-							content={field.value} 
-							onChange={field.onChange}
-         		/>
-    )}
-    control={control}
-    defaultValue="" 
- />
+
+				<FormControl>
+					<label htmlFor="content">محتوى</label>
+					<Controller
+						name="content"
+						render={({ field }) => (
+							<Editor
+								content={field.value}
+								onChange={field.onChange}
+							/>
+						)}
+						control={control}
+						defaultValue=""
+					/>
+				</FormControl>
+
 
 				<FormControl>
 					<FormLabel>الفئة</FormLabel>

@@ -1,23 +1,37 @@
 "use client";
-import { CldUploadWidget } from "next-cloudinary";
 import React, { useState } from "react";
-const CloudUpload = ({ children }) => {
-	const [resource, setResource] = useState();
+import { CldUploadWidget } from 'next-cloudinary';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+
+
+const CloudUpload = ({ children, register }) => {
+	const [url, setUrl] = useState("")
+	const handleSubmit = (result) => {
+		const {url} = result.info;
+		if(url)
+			setUrl(url)
+	};
+	const change = (value)=>{
+		setUrl(value);
+	}
 	return (
-		<CldUploadButton
-			className={styles.button}
-			onUpload={(error, result, widget) => {
-        if(error)
-          console.log(error);
-        console.log(result);
-				setResource(result?.info); // { public_id, secure_url, etc }
-				widget.close();
-			}}
-			signatureEndpoint="/api/sign-cloudinary-params"
-			uploadPreset="next-cloudinary-signed"
-		>
-			Upload to Cloudinary
-		</CldUploadButton>
+		<div>
+			<FormLabel>الصورة</FormLabel>
+			<Input onChange={change} value={url} placeholder="رابط الصورة" {...register("img", {onChange: (e) => setUrl(e.target.value)})} />
+			<CldUploadWidget
+				onSuccess={handleSubmit}
+				uploadPreset="articles_images">
+				{({ open }) => {
+					return (
+						<button type="button" onClick={() => open()}>
+							{children}
+						</button>
+					);
+				}}
+			</CldUploadWidget>
+		</div>
+
 	);
 };
 

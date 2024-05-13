@@ -52,7 +52,8 @@ export default function Login() {
         setAlert(true);
         setMessage(responseBody.message);
         setLoading(false);
-        router.push(`/`)
+        if(response.ok)
+          router.push(`/`)
         }
       catch (error) {
         setAlert(true);

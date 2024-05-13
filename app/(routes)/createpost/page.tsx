@@ -4,9 +4,7 @@ import { getDataFromSession } from "@/app/utils/tokenUtils"
 import { cookies } from "next/headers"
 import { sessionData } from "@/app/utils/intrfaces"
 import CreatePost from "@/app/components/admin/createPost/createPost"
-import { getCategoriesNames } from "@/app/utils/fetchData"
 const page = async () => {
-  const categories = await getCategoriesNames();
   const session = cookies().get("session")?.value
   const userData = await getDataFromSession(session) as unknown as sessionData;
   if(!userData)

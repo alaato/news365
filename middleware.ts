@@ -5,11 +5,14 @@ import { isAuthor } from "./app/utils/authinticationUtils";
 export async function  middleware(request: NextRequest) {
 	const session = request.cookies.get("session")?.value;
 	const isAuthenticated = session? true: false;
-	const currentPath = request.nextUrl.pathname;
-	
+	const currentPath = request.nextUrl.pathname;	
 
 	if(isAuthenticated && (currentPath == '/login' || currentPath == '/signup'))
+	{
+		console.log(isAuthenticated, " login ")
 		return NextResponse.redirect(new URL("/", request.url));
+	}
+
 	if (!isAuthenticated && currentPath.startsWith("/admin"))
 		return NextResponse.redirect(new URL("/", request.url));
 }
