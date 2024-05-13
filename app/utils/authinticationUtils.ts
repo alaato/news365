@@ -1,6 +1,4 @@
 import customError from "./customError";
-import { cookies } from "next/headers";
-import { getDataFromSession } from "./tokenUtils";
 import { sessionData } from "./intrfaces";
 
 

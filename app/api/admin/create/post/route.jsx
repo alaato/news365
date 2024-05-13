@@ -1,9 +1,7 @@
 import Article from "@/app/models/articleModel";
 import Category from "@/app/models/CategoryModel";
 import connect from "@/app/utils/connect";
-import { compose } from "@mui/system";
 import { NextResponse } from "next/server";
-
 export async function POST(request) {
 
     try {
@@ -12,12 +10,12 @@ export async function POST(request) {
         const article = new Article(body)
         await article.save();
         const category = await Category.findOne({category: body.category})
-        category.articles.push(article)
+        category.articles.push(article);
         await category.save();
         return NextResponse.json(article,{status: 201}) 
     } catch (error) {
-        console.log('something wrong')
         console.log(error);
+        return NextResponse.error(error);
     }
    
 }

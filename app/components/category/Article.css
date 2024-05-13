@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
+.article *
+{
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+.hero
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hero .hero-post
+{
+    width: 100%;
+    max-width: 700px;
+    height: 300px;
+    margin-bottom: 32px;
+}
+
+.article-header
+{
+    text-align: right;
+    width: 100%;
+    padding: 1rem 0;
+}
+.article-title
+{
+    font-size: 4rem;
+}
+.article-image 
+{
+    width: 100%;
+}
+.article-content
+{
+    margin: 10px 0px;
+}
+.article-content  p
+{
+    font-size: 1.3rem;
+    font-weight: 400;
+    width: 100%;
+    margin: 12px 0px;
+}
+.author{
+    display: inline;
+    text-transform: capitalize;
+}
+.publish-date{
+    margin:0 0 10px 0;
+}
+@media (max-width: 768px) {
+    .article-title
+    {
+        font-size: 3rem;
+    }
+    .article-content{
+        width: 95vw;
+    }
+}

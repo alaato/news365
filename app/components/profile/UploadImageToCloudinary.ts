@@ -46,17 +46,15 @@ export async function UploadImageToCloudinary (formData: FormData): Promise<Stri
     })
     .end(buffer)
   });
-  console.log(image)
   return image.url;
 }
 
 export async function SaveAvatarInDatabase(image: String, id:string )
 {
   try {
-    const user = await User.findById(id);
+    const user = await User.findByIdAndUpdate(id, {Avatar: image});
     if(!user)
       throw new Error
-    user.avatar = image;
     user.save();
   } catch (error) {
     console.log(error);

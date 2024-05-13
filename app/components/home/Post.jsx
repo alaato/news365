@@ -4,11 +4,8 @@ import CardContent from '@mui/joy/CardContent';
 import CardLink from './CardLink';
 
 export default async function Post({sx, className, article}) {
-  const title = "news"
-  const category = null;
-  const id = null;
-  if (article)
-    {const {title, id, category} = article}
+  const {title, id, category} = article;
+  
   return (
     <Card sx = {sx} className = {className} >
       <CardCover>

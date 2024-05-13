@@ -26,7 +26,7 @@ function Navbar() {
     })
     .catch((error) => {
       console.error('Error fetching initial data from backend:', error);
-      throw new Error(error)
+      // throw new Error(error)
     });
   }, [])
 
