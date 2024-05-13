@@ -10,7 +10,7 @@ import { Select, Textarea, Option } from "@mui/joy";
 import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
 import Editor from '@/app/components/Tiptap/editor'
-
+import CloudUpload from '@/app/components/cloudinary/cloudUpload'
 const CreatePostForm =  ({categories, author}) => {
 	const router = useRouter();
 	const {control, register, handleSubmit, formState: { errors } } = useForm();
@@ -19,12 +19,12 @@ const CreatePostForm =  ({categories, author}) => {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({author ,...data}),
-		}
+			}
 		)
 		if (response.ok) {
 			const article = await response.json()
 			console.log(article)
-			// router.push(`/news/${article.category}/${article.id}`)
+			router.push(`/news/${article.category}/${article._id}`)
 		}
 	}
 	return (
@@ -36,12 +36,15 @@ const CreatePostForm =  ({categories, author}) => {
 					{errors.title && <FormHelperText className={styles.warning}>{errors.title.message}</FormHelperText>}
 				</FormControl>
 
-				{/* <FormControl>
-					<FormLabel>النص</FormLabel>
-					<Textarea minRows={10} placeholder="النص" {...register("content", { required: "يجب ادخال النص" })} />
-					{errors.content && <FormHelperText className={styles.warning}>{errors.content.message}</FormHelperText>}
-				</FormControl> */}
+
+				<FormControl>
+					<FormLabel>الصورة</FormLabel>
+					<Input placeholder="رابط الصورة" {...register("img", { required: "يجب ادخال الصورة" })} />
+					{errors.img && <FormHelperText className={styles.warning}>{errors.img.message}</FormHelperText>}
+					<CloudUpload>او  يمكنك تحميل الصورة</CloudUpload>
+				</FormControl>
 				 <Controller
+				 	name = "content"
 					render={({field}) => (
 						<Editor 
 							content={field.value} 
@@ -49,7 +52,6 @@ const CreatePostForm =  ({categories, author}) => {
          		/>
     )}
     control={control}
-    name="editor"
     defaultValue="" 
  />
 

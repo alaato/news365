@@ -1,19 +1,24 @@
-'use client'
-import { CldUploadWidget } from 'next-cloudinary';
-import React from 'react'
-import styles from './upload.module.css' 
- const upload = ({children}) => {
-   return (
-    <CldUploadWidget uploadPreset="<Your Upload Preset>">
-    {({ open }) => {
-      return (
-        <button className={styles.uploadButton} onClick={() => open()}>
-          {children}
-        </button>
-      );
-    }}
-  </CldUploadWidget>
-   )
- }
- 
- export default upload
+"use client";
+import { CldUploadWidget } from "next-cloudinary";
+import React, { useState } from "react";
+const CloudUpload = ({ children }) => {
+	const [resource, setResource] = useState();
+	return (
+		<CldUploadButton
+			className={styles.button}
+			onUpload={(error, result, widget) => {
+        if(error)
+          console.log(error);
+        console.log(result);
+				setResource(result?.info); // { public_id, secure_url, etc }
+				widget.close();
+			}}
+			signatureEndpoint="/api/sign-cloudinary-params"
+			uploadPreset="next-cloudinary-signed"
+		>
+			Upload to Cloudinary
+		</CldUploadButton>
+	);
+};
+
+export default CloudUpload;

@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       </head>
         <body >
           <div id="root">
-            {/* <Nav/> */}
+            <Nav/>
             <ThemeRegistry options={{ key: 'joy' }}>
               {children}
             </ThemeRegistry>

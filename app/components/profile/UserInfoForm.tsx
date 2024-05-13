@@ -12,52 +12,44 @@ import {UploadImageToCloudinary, SaveAvatarInDatabase} from "./UploadImageToClou
 import Formschema from "./InfoFormSchema";
 
 type Inputs = {
-  FirstName: string
-  LastName: string
+  username: string
   Email: string
   Avatar: File
 }
 
-const UserInfoForm = ({firstName, lastName, email }) => {
+const UserInfoForm = ({username, email, id, avatar }) => {
   const {register, handleSubmit, formState: { errors }} = useForm({resolver: yupResolver(Formschema)})
   const form = useRef<HTMLFormElement>(null);
   const onSubmit: SubmitHandler<Inputs> = async() =>{
     const formData = new FormData(form.current);
     const Imageurl = await UploadImageToCloudinary(formData)
-    await SaveAvatarInDatabase(Imageurl, "646846");
+    console.log(Imageurl)
+    await SaveAvatarInDatabase(Imageurl, id);
     }
   return (
     <form encType="multipart/form-data" ref={form} style={{flexGrow:1}} onSubmit={handleSubmit(onSubmit)}>
-      <Stack className="Presonal_info"
-        direction={{sm:"row"}}
-        spacing={1}
-        sx={{gap : "1rem",  display:'flex', my: 1}}
-        useFlexGap
+      <Stack className="Presonal_info" direction={{sm:"row"}} spacing={1} 
+      sx={{gap : "1rem",  display:'flex', my: 1}}
+      useFlexGap
       >
-        <UploadImage register ={register}/>
+        <UploadImage pfp={avatar} register ={register}/>
         <Stack  sx={{flexGrow: 1}} useFlexGap spacing={1}>
           <FormControl>
-              <FormLabel>الاسم</FormLabel>
-              <Input error={!!errors.FirstName} {...register("FirstName")}  placeholder={firstName} />
-              {errors.FirstName && <FormHelperText >{errors.FirstName.message}</FormHelperText>}
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>اللقب</FormLabel>
-              <Input error={!!errors.LastName} {...register("LastName" )} placeholder={lastName}/>
-              {errors.LastName && <FormHelperText >{errors.LastName.message}</FormHelperText>}
+              <FormLabel>اسم المستخدم</FormLabel>
+              <Input value={username} error={!!errors.username} {...register("username")}  placeholder={username} />
+              {errors.username && <FormHelperText >{errors.username.message}</FormHelperText>}
             </FormControl>
 
             <FormControl >
               <FormLabel>البريد الالكتروني</FormLabel>
-              <Input  error={!!errors.Email}  type="email" startDecorator={<EmailRoundedIcon />}
+              <Input value={email} error={!!errors.Email}  type="email" startDecorator={<EmailRoundedIcon />}
                 placeholder={email}
                 sx={{ flexGrow: 1 }}
                 {...register("Email",)}
               />
                 {errors.Email && <FormHelperText >{errors.Email.message}</FormHelperText>}
             </FormControl>
-
+            
             <FormAction/>
 
           </Stack>

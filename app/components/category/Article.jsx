@@ -2,6 +2,8 @@ import { Avatar } from '@mui/joy'
 import connect from "@/app/utils/connect";
 import Article from "@/app/models/articleModel";
 import { notFound } from 'next/navigation';
+import parse from 'html-react-parser';
+import  './Article.css'
 const getArticle = async(id) =>
 {
   try {
@@ -19,21 +21,20 @@ const getArticle = async(id) =>
 const article = async ({id}) => {
   const article = await getArticle(id);
   return (
-    <article className='container'>
+    <article className='article container'>
     <section className='article-header'>
          <h1 className='article-title'>{article.title}</h1>
          <div className='author'>
-         <Avatar size="lg">{article.author}</Avatar>
-         <h3>نشر في تاريخ : {article.publishedAt.toLocaleString('en-US')}</h3>
+         <Avatar alt={article.author}  size="lg"></Avatar>
+         <div>{article.author}</div>
          </div>
+         <h3 className='publish-date'> نشر في تاريخ : {article.publishedAt.toLocaleString('en-US')}</h3>
          <div>
-         <img  className='article-image' src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="" />
-         <p></p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+         <img className='article-image' src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="" />
          </div>
          <section className='article-content'>
-           <p  style={{ whiteSpace: 'pre-line' }}>
-             {article.content}
-           </p>
+            { parse(article.content)}
          </section>
      </section>
  </article>

@@ -10,7 +10,7 @@ export async function  middleware(request: NextRequest) {
 
 	if(isAuthenticated && (currentPath == '/login' || currentPath == '/signup'))
 		return NextResponse.redirect(new URL("/", request.url));
-	if (!isAuthenticated && currentPath.startsWith("/ladmin"))
+	if (!isAuthenticated && currentPath.startsWith("/admin"))
 		return NextResponse.redirect(new URL("/", request.url));
 }
 

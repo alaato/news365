@@ -5,9 +5,9 @@ import { Avatar } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import { forwardRef } from 'react';
 
-const uploadImage = forwardRef(function MyInput(props:{register:Function}, ref){
-    const [image, setImage] = useState(null);
-    const {register} = props
+const uploadImage = forwardRef(function MyInput(props:{pfp:string, register:Function}, ref){
+  const {register, pfp} = props  
+  const [image, setImage] = useState(pfp);
 
     const SetAvatarImage = (e)=>{
         const image = e.target.files[0];
