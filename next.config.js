@@ -17,7 +17,19 @@ const nextConfig  = {
       remotePatterns: [
         {
           protocol: 'https',
+          hostname: '**',
+        },
+        {
+          protocol: 'https',
           hostname: 'img.freepik.com',
+        },
+        {
+          protocol: 'https',
+          hostname: '"www.aljazeera.net"',
+        },
+        {
+          protocol: 'http',
+          hostname: 'res.cloudinary.com',
         },
       ],
       

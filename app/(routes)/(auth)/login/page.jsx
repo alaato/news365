@@ -43,7 +43,6 @@ export default function Login() {
 
     if(response)
     {
-      console.log(responseBody)
       try {  
         if(!response.ok)
           setStatus("error")
@@ -70,7 +69,7 @@ export default function Login() {
     </AlertContext.Provider>
    <section className= {styles.containerForm}>
     <h1 className="header"> تسجيل</h1>
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form dir="auto" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
        <Stack>
 
         <FormControl>

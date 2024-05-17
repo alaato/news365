@@ -1,5 +1,5 @@
 import React from 'react'
-import Article from '@/app/components/category/Article'
+import Article from '../../../../components/Article/Article'
 
 
 const page = ({params}) => {

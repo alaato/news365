@@ -5,20 +5,22 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 
 
-const CloudUpload = ({ children, register }) => {
-	const [url, setUrl] = useState("")
+const CloudUpload = ({ children, onChange, value}) => {
 	const handleSubmit = (result) => {
 		const {url} = result.info;
 		if(url)
-			setUrl(url)
+			onChange(url)
 	};
-	const change = (value)=>{
-		setUrl(value);
+	const change = (data)=>{
+		if(!data)
+			;
+		onChange(data.target.value);
+		console.log(data.target.value);
 	}
 	return (
 		<div>
 			<FormLabel>الصورة</FormLabel>
-			<Input onChange={change} value={url} placeholder="رابط الصورة" {...register("img", {onChange: (e) => setUrl(e.target.value)})} />
+			<Input onChange={change} value={value} placeholder="رابط الصورة" />
 			<CldUploadWidget
 				onSuccess={handleSubmit}
 				uploadPreset="articles_images">

@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar">
       <head>
+      <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
       </head>
         <body >
           <div id="root">

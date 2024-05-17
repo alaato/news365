@@ -9,7 +9,6 @@ export async function  middleware(request: NextRequest) {
 
 	if(isAuthenticated && (currentPath == '/login' || currentPath == '/signup'))
 	{
-		console.log(isAuthenticated, " login ")
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 

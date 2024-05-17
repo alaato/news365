@@ -73,7 +73,7 @@ export default function Subscribe() {
     </AlertContext.Provider>
    <section className= {styles.containerForm}>
     <h1 className="header"> اشترك</h1>
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form dir="auto" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
        <Stack spacing={1}>
        <FormControl >
         <FormLabel>الاسم</FormLabel>

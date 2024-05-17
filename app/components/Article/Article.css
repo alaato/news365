@@ -24,13 +24,16 @@
     width: 100%;
     padding: 1rem 0;
 }
+
 .article-title
 {
     font-size: 4rem;
 }
 .article-image 
 {
-    width: 100%;
+    position: relative;
+    width: 720px;
+    height: 480px;
 }
 .article-content
 {
@@ -38,7 +41,7 @@
 }
 .article-content  p
 {
-    font-size: 1.3rem;
+    font-size: 1.0rem;
     font-weight: 400;
     width: 100%;
     margin: 12px 0px;

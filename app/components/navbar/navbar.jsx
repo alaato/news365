@@ -9,6 +9,7 @@ import "./navbar.css"
 import Hamburger from './hamburger'
 import Link from "next/link";
 import React, { useState, useEffect } from 'react'
+import { connect } from "mongoose";
 
 
 const pages = ["أخبار" , "تحقيقات", "أراء","صحف و مجلات", "من نحن", "اتصل بنا" ];

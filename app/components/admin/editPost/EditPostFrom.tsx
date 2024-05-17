@@ -11,22 +11,33 @@ import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
 import Editor from '@/app/components/Tiptap/editor'
 import CloudUpload from '@/app/components/cloudinary/cloudUpload'
-const CreatePostForm = ({ categories, author }) => {
+import { yupResolver } from "@hookform/resolvers/yup"
+import { authorData } from '@/app/utils/intrfaces';
+import { Article, articleSchema } from '@/app/utils/intrfaces';
+interface EditPostFormProps {
+    categories: string[];
+	article : Article;
+  }
+const EditPostForm: React.FC<EditPostFormProps>= ({ categories, article }) => {
 	const router = useRouter();
-	const { control, register, handleSubmit, formState: { errors } } = useForm();
-	const onSubmit = async (data) => {
+	const { control, register, handleSubmit, formState: { errors } } = useForm({
+			resolver: yupResolver(articleSchema),
+			defaultValues: article
+		}
+	);
+	const onSubmit = async (data:any) => {
 		console.log(data)
-		const response = await fetch('/api/admin/post/create', {
+		const response = await fetch(`/api/admin/post/edit/${article._id}`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({author, ...data }),
+			body: JSON.stringify({...data }),
 		}
 		)
 		
 		if (response.ok) {
 			const article = await response.json()
 			console.log(article)
-			router.push(`/news/${article.category}/${article._id}`)
+			// router.push(`/news/${article.category}/${article._id}`)
 		}
 	}
 	return (
@@ -70,7 +81,7 @@ const CreatePostForm = ({ categories, author }) => {
 
 				<FormControl>
 					<FormLabel>الفئة</FormLabel>
-					<Select {...register("category",  { required: "يجب ادخال الفئة" })}>
+					<Select defaultValue={article.category} {...register("category",  { required: "يجب ادخال الفئة" })}>
 						{categories.map(category => <Option key={category} value={category}> {category} </Option>)}
 					</Select>
 					{errors.category && <FormHelperText className={styles.warning}>{errors.category.message}</FormHelperText>}
@@ -82,4 +93,4 @@ const CreatePostForm = ({ categories, author }) => {
 	)
 }
 
-export default CreatePostForm
+export default EditPostForm

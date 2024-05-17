@@ -1,10 +1,12 @@
+'use client'
 import { Stack } from '@mui/joy';
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import 'iconify-icon';// define your extension array
+import 'iconify-icon';
 import styles from './editor.module.css'
 import Youtube from '@tiptap/extension-youtube'
 import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 
 const extensions = [
   Image,
@@ -12,6 +14,13 @@ const extensions = [
     controls: true,
   }),
   StarterKit,
+  Link.configure({
+    openOnClick: false, 
+    autolink: false,
+    HTMLAttributes: {
+      target: "_blank",
+    },
+  })
 ]
 
 const Tiptap = ({ onChange, content }) => {
@@ -21,6 +30,13 @@ const Tiptap = ({ onChange, content }) => {
 
     if (url) {
       editor.chain().focus().setImage({ src: url }).run()
+    }
+  }
+  const addUrl = () => {
+    const url = prompt('أدخل عنوان ')
+
+    if (url) {
+      editor.chain().focus().setLink({ href: url }).run()
     }
   }
   const addYoutubeVideo = () => {
@@ -45,7 +61,6 @@ const Tiptap = ({ onChange, content }) => {
         class: 'editor',
       },
     },
-
   })
   return (
     <Stack>
@@ -55,6 +70,7 @@ const Tiptap = ({ onChange, content }) => {
         justifyContent: "center"
       }}>
         <button className='button-28' type='button' id="add" onClick={addYoutubeVideo}>YouTube</button>
+        <button className='button-28' type='button'onClick={addUrl} id="add">link</button>
         <button className='button-28' type='button' id="add" onClick={addImage}>
           <iconify-icon icon="material-symbols:image-outline"></iconify-icon></button>
         <button className='button-28' type='button' onClick={() => editor.chain().focus().toggleBold().run()}>
@@ -68,7 +84,7 @@ const Tiptap = ({ onChange, content }) => {
         <button className='button-28' type='button' onClick={() => editor.chain().focus().setParagraph({}).run()}>
           <iconify-icon height="1.2rem" width="1.2rem" icon="mdi:format-paragraph"></iconify-icon>        </button>
       </Stack>
-      <EditorContent id='editor' className={styles.editor} editor={editor} />
+      <EditorContent dir='auto' id='editor' className={styles.editor} editor={editor} />
     </Stack>
 
   )

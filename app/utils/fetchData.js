@@ -30,9 +30,7 @@ export async function getCategoriesNames() {
 export async function getCategory(category) {
 	try {
 		await connect();
-		console.log("Loading....");
 		const foundCategory = await Category.findOne({ category: category });
-		console.log(foundCategory);
 		return foundCategory;
 	} catch (error) {
 		console.error("database error : ", error);
@@ -43,9 +41,10 @@ export async function GetArticlesCategory(category) {
 	try {
 		await connect();
 		const newcategory = await Category.findOne({ category: category })
-			.sort({ publishedAt: -1 })
 			.populate("articles");
-		const allArticles = newcategory.articles;
+		if(!newcategory)
+			return ;
+		const allArticles = newcategory.articles.reverse();
 		return allArticles;
 	} catch (error) {
 		console.error("database error : ", error);
@@ -86,7 +85,6 @@ export async function fetchLatestCategory(category) {
 		const latest = await Article.findOne({ category }).sort({
 			publishedAt: -1,
 		});
-		console.log(latest);
 		return latest;
 	} catch (err) {
 		console.error(err);
