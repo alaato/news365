@@ -2,17 +2,18 @@ import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import CardLink from './CardLink';
-
+import Image from 'next/image';
+interface article {
+  title : string,
+  id : string,
+  category : string
+}
 export default async function Post({sx, className, article}) {
-  const {title, id, category} = article;
-  
+  const {title, id, category}  : article = article;
   return (
     <Card sx = {sx} className = {className} >
       <CardCover>
-        <img
-          src="https://image.jimcdn.com/app/cms/image/transf/none/path/s66fbe0abd6f917b2/image/i9f2bce16815782a9/version/1501696468/image.jpg"
-          alt=""
-        />
+        <Image sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' src={article.img? article.img : "/news.jpg"} alt="" fill/>
       </CardCover>
       <CardCover
         sx={{
@@ -21,7 +22,7 @@ export default async function Post({sx, className, article}) {
         }}
       />
       <CardContent  sx={{ justifyContent: 'flex-end'}}>
-      <CardLink title = {title} href={`/news/${category}/${id}`}/>
+      <CardLink title = {title.substring(0,50) + (title.length >= 50? "...": "")} href={`/news/${category}/${id}`}/>
       </CardContent>
     </Card>
 

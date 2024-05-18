@@ -16,6 +16,13 @@ import { extendTheme } from "@mui/joy";
         },
       },
     },
+    JoyLink: {
+      styleOverrides: {
+        root: {
+         color: "white",
+        },
+      },
+    },
     JoyButton: {
       defaultProps: {
         variant: 'usual'

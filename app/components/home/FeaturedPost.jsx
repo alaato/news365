@@ -2,7 +2,8 @@ import CardLink from './CardLink';
 import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
-
+import newsImage from "@/public/news.jpg"
+import Image from 'next/image';
 
 export default function FeaturedPost({sx, classname, article}) {
   const {title, id, category} = article;
@@ -10,10 +11,11 @@ export default function FeaturedPost({sx, classname, article}) {
   return (
     <Card sx={sx} className = {classname}>
       <CardCover>
-        <img
-          src="https://static.vecteezy.com/system/resources/thumbnails/006/299/370/original/world-breaking-news-digital-earth-hud-rotating-globe-rotating-free-video.jpg"
+        <Image
+          src={article.img? article.img : newsImage}
           loading="lazy"
           alt=""
+          fill
         />
       </CardCover>
       <CardCover

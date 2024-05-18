@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import Link from '@mui/joy/Link';
 const CardLink = ({href, title}) => {
   return (
-    <Link color='white' component={NextLink} href = {href} overlay>
+    <Link color = "neutral" component={NextLink} href = {href} overlay>
     {title}
     </Link>
       )

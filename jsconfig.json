@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2016",
+    "jsx": "preserve",
     "checkJs" : true,
-    "jsx": "react",
     "paths": {
       "@/*": ["./*"]
     }

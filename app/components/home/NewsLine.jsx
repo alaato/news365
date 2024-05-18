@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Post from './Post';
+import Post from './Post.tsx';
 import "./Newsline.css"
 import connect from "@/app/utils/connect";
 import Article from "@/app/models/articleModel";

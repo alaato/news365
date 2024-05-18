@@ -6,11 +6,11 @@ export async function  middleware(request: NextRequest) {
 	const session = request.cookies.get("session")?.value;
 	const isAuthenticated = session? true: false;
 	const currentPath = request.nextUrl.pathname;	
-
-	if(isAuthenticated && (currentPath == '/login' || currentPath == '/signup'))
-	{
+	
+	if(!isAuthenticated && (currentPath === '/logout'))
 		return NextResponse.redirect(new URL("/", request.url));
-	}
+	if(isAuthenticated && (currentPath == '/login' || currentPath == '/signup'))
+		return NextResponse.redirect(new URL("/", request.url));
 
 	if (!isAuthenticated && currentPath.startsWith("/admin"))
 		return NextResponse.redirect(new URL("/", request.url));

@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Post from "./Post"
+import Post from "./Post.tsx"
 import FeaturedPost from './FeaturedPost';
 import './newsgrid.css'
 import { fetchArticles, fetchFeatured } from '@/app/utils/fetchData';
