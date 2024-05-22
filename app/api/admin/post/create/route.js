@@ -8,7 +8,6 @@ export async function POST(request) {
     try {
         await connect();
         const body = await request.json()
-        console.log(body);
         const article = new Article(body)
         await article.save();
         const category = await Category.findOne({category: body.category})
@@ -17,9 +16,9 @@ export async function POST(request) {
         const author = await User.findById(body.author.id)
         author.articles.push(article);
         await author.save();
-        return NextResponse.json({article},{status: 201}) 
+        return NextResponse.json(article,{status: 201}) 
     } catch (error) {
         console.log(error);
-        return NextResponse.error(error);
+        return NextResponse.json({message : error},{status: 500});
     }
 }

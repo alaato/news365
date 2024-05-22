@@ -13,6 +13,12 @@ const articleSchema = new Schema({
   img: { type: String},
   featured: { type: Boolean, default: false },
 });
+articleSchema.set('toObject', { getters: true });
+articleSchema.virtual('thumbnail').get(function() {
+	const img = this.img
+	const thumbnail = img?.startsWith("res.cloudinary.com")? img.replace('/upload', '/upload/c_thumb,g_center,w_200') : null;
+	return thumbnail;
+  });
 articleSchema.statics.setFeaturedArticle = async function (articleId) {
   // Reset featured flag for all articles
   await this.updateMany({}, { featured: false });

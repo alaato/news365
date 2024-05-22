@@ -8,6 +8,7 @@ import { AlertContext } from './alertContext';
 export default function Toast(props){
     const {message, status} = props
     const [isAlert, setAlert] = useContext(AlertContext);
+	console.log(isAlert);
   return (
     <section className='Alert'>
         {

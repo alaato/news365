@@ -2,10 +2,10 @@ import connect from "@/app/utils/connect";
 import Category from "@/app/models/CategoryModel";
 import Article from "@/app/models/articleModel";
 
-export async function getCategories() {
+export async function getSubCategories() {
 	try {
 		await connect();
-		const allCategories = await Category.find({})
+		const allCategories = await Category.find({}, { category: 1, _id: 0 }).lean()
 			.sort({ publishedAt: -1 })
 			.limit(4);
 		return allCategories;
@@ -17,7 +17,7 @@ export async function getCategories() {
 export async function getCategoriesNames() {
 	try {
 		await connect();
-		const categories = await Category.find({},{category: 1,  _id: 0 })
+		const categories = await Category.find({}, { category: 1, _id: 0 })
 			.sort({ publishedAt: -1 })
 		const categoriesNames = categories.map(category => category.category)
 		return categoriesNames;
@@ -42,8 +42,8 @@ export async function GetArticlesCategory(category) {
 		await connect();
 		const newcategory = await Category.findOne({ category: category })
 			.populate("articles");
-		if(!newcategory)
-			return ;
+		if (!newcategory)
+			return;
 		const allArticles = newcategory.articles.reverse();
 		return allArticles;
 	} catch (error) {
@@ -59,7 +59,6 @@ export async function fetchArticles(categories) {
 		for (let category of categories) {
 			const article = await Article.findOne({ category: category.category })
 				.sort({ publishedAt: -1 })
-				.limit(1);
 			allArticles.push(article);
 		}
 		return allArticles;

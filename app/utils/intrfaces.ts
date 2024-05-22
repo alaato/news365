@@ -13,6 +13,7 @@ export type ProfileInfo = {
 	role: string;
 	id: string;
 	Avatar: string;
+	thumbnail?: string;
 };
 export interface ProfileInfoProps {
 	user: ProfileInfo;

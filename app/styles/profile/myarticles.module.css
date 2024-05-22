@@ -1,0 +1,12 @@
+.myArticlesContainer
+{
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.myArticlesContainer>* {
+	max-width: 500px;
+	flex: 1 1 500px;
+  }

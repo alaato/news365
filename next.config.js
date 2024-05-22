@@ -6,6 +6,16 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 /** @type {import('next').NextConfig} */
 
 const nextConfig  = {
+	experimental: {
+		turbo: {
+		  rules: {
+			'*.svg': {
+			  loaders: ['@svgr/webpack'],
+			  as: '*.js',
+			},
+		  },
+		},
+	  },
     webpack: (config) => {
       config.resolve.fallback = {
         "mongodb-client-encryption": false ,

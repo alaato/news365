@@ -14,10 +14,10 @@ export default function Opinion({text}) {
       <CardContent>
         <Typography level="title-lg">NYC Coders</Typography>
         <Typography sx ={{maxWidth : "100%"}}level="body-sm">
-          "We are a community of developers prepping for coding interviews,
+          We are a community of developers prepping for coding interviews,
           participate, chat with others and get better at interviewing.
           We are a community of developers prepping for coding interviews,
-          participate, chat with others and sget better at interviewing."
+          participate, chat with others and sget better at interviewing.
         </Typography>
       </CardContent>
   

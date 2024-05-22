@@ -1,8 +1,7 @@
-
-async function article() {
+import Article from "@/app/components/Article/Article"
+async function investagtionsArticle() {
   return (
    <Article/>
   )
 }
-
-export default article
+export default investagtionsArticle

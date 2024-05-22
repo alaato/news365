@@ -13,7 +13,7 @@ const getArticle = async(id) =>
     if (article === null) return notFound();
     return article;
     } catch (error) {
-        console.error('database error : ',error);
+        console.error('FROM ARTICLE COMPONENT database error : ',error);
         notFound();
     }
 }

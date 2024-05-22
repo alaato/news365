@@ -2,7 +2,7 @@ import EditPost from "@/app/components/admin/editPost/Editpost";
 import Article from "@/app/models/articleModel"
 import { notFound } from "next/navigation";
 import { authorData } from "@/app/utils/intrfaces";
-import { getAuthorData } from "@/app/utils/authinticationUtils";
+import { getAuthorData } from "@/app/utils/Auth/authinticationUtils";
 import customError from "@/app/utils/customError";
 import React from "react";
 import { Article as ArticleInterface} from "@/app/utils/intrfaces";

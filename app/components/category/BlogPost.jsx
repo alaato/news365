@@ -11,7 +11,7 @@ import { getDataFromSession } from "@/app/utils/tokenUtils"
 import { cookies } from "next/headers"
 import Link from "next/link";
 import styles from "@/app/styles/buttons.module.css"
-import DeletePostButton from "./deletePostButton"
+import DeletePostButton from "./DeletePostButton"
 
 export default async function BlogPost({article, href}) {
 
@@ -46,10 +46,10 @@ export default async function BlogPost({article, href}) {
         </CardContent>
 
         {isTheAuthor && <CardActions buttonFlex="0 1 150px">
-          <Link className={styles.editButton +' '+ styles.button} href={"posts/edit/"+ article.id}>
+          <Link className={styles.editButton +' '+ styles.button} href={"/news/posts/edit/"+ article.id}>
           تعديل المنشور
           </Link >
-          <DeletePostButton id={id} className={styles.deleteButton + ' '+ styles.button}  href={"posts/delete/"+ article.id} >
+          <DeletePostButton id={id} className={styles.deleteButton + ' '+ styles.button}  >
           </DeletePostButton >
         </CardActions>}
         </Stack>

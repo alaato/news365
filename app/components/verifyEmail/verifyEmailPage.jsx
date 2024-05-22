@@ -10,7 +10,7 @@ import { AlertContext } from "@/app/components/General/alertContext";
 import { useRouter } from 'next/navigation';
 
 
-const verifyEmailPage = ({verified, GenerateNewToken}) => {
+const VerifyEmailPage = ({verified, GenerateNewToken}) => {
     const [isAlert, setAlert] = useState(false);
     const [message, setMessage] = useState("");
     const [Status, setStatus] = useState("");
@@ -66,4 +66,4 @@ const verifyEmailPage = ({verified, GenerateNewToken}) => {
   )
 }
 
-export default verifyEmailPage
+export default VerifyEmailPage
