@@ -45,3 +45,57 @@
 - we need to declare the values we need to pass to children. 
 - warp the children inside the context provider component
 - use useContext in the children components and pass the context inside useContext
+
+
+
+## implement fuzzy search
+
+### Search Button
+- Imlplement an input in the header
+- create a page to show results.
+- upon hitting enter direct them to a search page
+- send the search term in the query of the url
+
+#### create a search page
+- read from the query
+- search the database
+- use the array to show cards
+- have a search input in the same page
+
+#### reading from the database
+- Use Server action
+- wrap the search input in a form
+- use the Server Action to to get results from mongodb atlas
+- make a handle submit function that use the server action then set the array to the result
+
+
+
+## implement opinion
+
+### make a schema for opinion
+- author
+- title
+- content
+
+### make a form to create a form to submit an opinion
+- a button to show a modal
+- the modal is a form
+	- title
+	- content
+- send the data to server component
+- useFormState to get pending state
+- wait for a response
+	- ok? router.refresh and close modal
+	- no? then show that there was an error
+
+
+### show delete and edit button
+- check id of the opinion and the id of the logged in user
+- show a modal when user clicks in the delete button
+- server action, pass the opinion to delete
+- refresh the page
+
+
+### show pagnation for opinions
+
+### check search

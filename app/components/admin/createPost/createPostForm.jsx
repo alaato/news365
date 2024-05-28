@@ -7,10 +7,10 @@ import FormLabel from '@mui/joy/FormLabel';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
 import { Select, Option } from "@mui/joy";
-import { useRouter } from "next/navigation";
 import styles from "@/app/styles/subscribe.module.css"
 import Editor from '@/app/components/Tiptap/editor'
 import CloudUpload from '@/app/components/cloudinary/cloudUpload'
+import { useRouter } from 'next/navigation';
 const CreatePostForm = ({ categories, author }) => {
 	const router = useRouter();
 	const { control, register, handleSubmit, formState: { errors } } = useForm();
@@ -19,14 +19,14 @@ const CreatePostForm = ({ categories, author }) => {
 		const response = await fetch('/api/admin/post/create', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({author, ...data }),
+			body: JSON.stringify({ author, ...data }),
 		}
 		)
-		
+
 		if (response.ok) {
 			const article = await response.json()
 			console.log(article)
-			router.push(`/news/${article.category}/${article._id}`)
+			// router.push(`/news/${article.category}/${article._id}`)
 		}
 	}
 	return (
@@ -40,7 +40,7 @@ const CreatePostForm = ({ categories, author }) => {
 
 
 				<FormControl>
-				<Controller
+					<Controller
 						name="img"
 						render={({ field }) => (
 							<CloudUpload value={field.value} onChange={field.onChange}>او  يمكنك تحميل الصورة</CloudUpload>
@@ -64,18 +64,22 @@ const CreatePostForm = ({ categories, author }) => {
 						control={control}
 						defaultValue=""
 					/>
-				{errors.img && <FormHelperText className={styles.warning}>{errors.img.message}</FormHelperText>}
+					{errors.img && <FormHelperText className={styles.warning}>{errors.img.message}</FormHelperText>}
 				</FormControl>
 
 
 				<FormControl>
 					<FormLabel>الفئة</FormLabel>
-					<Select {...register("category",  { required: "يجب ادخال الفئة" })}>
+					<Select {...register("category", { required: "يجب ادخال الفئة" })}>
 						{categories.map(category => <Option key={category} value={category}> {category} </Option>)}
 					</Select>
 					{errors.category && <FormHelperText className={styles.warning}>{errors.category.message}</FormHelperText>}
 				</FormControl>
 
+				<FormControl sx={{alignSelf: "start"}}>
+					<label>المقال الرئيسي</label>
+					<input className={styles.checkbox} {...register("featured")} type='checkbox'/>
+				</FormControl>
 				<button className="button-28" type="submit"> ارسال</button>
 			</Stack>
 		</form>

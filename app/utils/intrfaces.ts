@@ -26,11 +26,9 @@ export interface authorData {
 
 export const articleSchema = yup.object({
 	_id: yup.string(),
+	id: yup.string(),
     title: yup.string().required(),
-    author: yup.object({
-        id: yup.string().required(),
-        username: yup.string().required(),
-    }),
+    author: yup.string().required(),
     category: yup.string().required(),
     content: yup.string().required(),
     publishedAt: yup.string().required(),

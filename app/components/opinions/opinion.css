@@ -1,0 +1,10 @@
+.opinion
+{
+flex: 1;
+}
+iframe{
+	width: 100% !important;
+	max-width: 1200px;
+	align-self: center;
+	text-align: center;
+}

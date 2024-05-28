@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Article = require('../models/articleModel');
-const Category = require('../models/CategoryModel');
+const Article = require('../../models/articleModel');
+const Category = require('../../models/CategoryModel');
 const categories = ["تحليلات","مصورة", "محلي", "دولي"];
 
 main()
@@ -9,7 +9,10 @@ main()
     mongoose.connection.close();
     console.log('closed connection');
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+	mongoose.connection.close();
+	console.log(err)
+});
 
 async function main() {
   if (mongoose.connection.readyState === 1) {
@@ -34,7 +37,7 @@ async function SeedDB() {
     if (i % 4 === 0 ) {
          article = new Article({
             title: 'Article',
-            author: 'author',
+            author: "663018c09ac911eb9f8156c2",
             category: categories[0], // Store category information
             content:'alot has happened',
             img: 'https://img.freepik.com/free-vector/blue-breaking-news-tv-background_1017-14201.jpg?size=626&ext=jpg',
@@ -47,7 +50,7 @@ async function SeedDB() {
     else if (i % 4 === 1){
         article = new Article({
             title: 'Article',
-            author: 'author',
+            author: "663018c09ac911eb9f8156c2",
             category: categories[1], // Store category information
             content:'alot has happened',
             img: 'https://img.freepik.com/free-vector/blue-breaking-news-tv-background_1017-14201.jpg?size=626&ext=jpg',
@@ -59,8 +62,8 @@ async function SeedDB() {
     else if (i % 4 === 2){
         article = new Article({
             title: 'Article',
-            author: 'author',
-            category: categories[2], // Store category information
+            author: "663018c09ac911eb9f8156c2",
+           category: categories[2], // Store category information
             content:'alot has happened',
             img: 'https://img.freepik.com/free-vector/blue-breaking-news-tv-background_1017-14201.jpg?size=626&ext=jpg',
         })
@@ -71,7 +74,7 @@ async function SeedDB() {
     else if (i % 4 === 3){
         article = new Article({
             title: 'Article',
-            author: 'author',
+            author: "663018c09ac911eb9f8156c2",
             category: categories[3], // Store category information
             content:'alot has happened',
             img: 'https://img.freepik.com/free-vector/blue-breaking-news-tv-background_1017-14201.jpg?size=626&ext=jpg',

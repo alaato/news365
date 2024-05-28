@@ -30,7 +30,7 @@ const UserInfoForm = ({ username, email, id, avatar, setAlert }) => {
 			console.log(data)
 			const formData = new FormData(form.current);
 			const {Email, username} = data;
-			const imageurl = await UploadImageToCloudinary(formData) || ""
+			const imageurl = await UploadImageToCloudinary(formData) as string || ""
 			const response = await  updateUser(username, Email, imageurl, id);
 			alert("saved")
 			if(response.success)

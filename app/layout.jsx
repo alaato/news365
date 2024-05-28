@@ -3,7 +3,6 @@ import Nav from "./components/navbar/Nav";
 import ThemeRegistry from "./Themereg";
 import { AuthProvider } from "./utils/Auth/authContext";
 import isAuth from "@/app/utils/Auth/isAuth";
-import { isAuthor } from '@/app/utils/Auth/authinticationUtils'
 
 
 export const metadata = {

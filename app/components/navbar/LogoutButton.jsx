@@ -10,7 +10,6 @@ const LogoutButton = ({logout}) => {
     if(response.ok)
       {
         logout()
-        router.push('/')
       }
   }
   return (

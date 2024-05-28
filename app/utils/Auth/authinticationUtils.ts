@@ -1,7 +1,7 @@
 import customError from "../customError";
 import { sessionData } from "../intrfaces";
-import { getDataFromSession } from "@/app/utils/tokenUtils"
 import { authorData } from "@/app/utils/intrfaces"
+import { getDataFromSession } from "../tokenUtils";
 export async function isAuthor(): Promise<boolean> {
 	try {
 		const userData: sessionData = await getDataFromSession()
@@ -16,13 +16,13 @@ export async function isAuthor(): Promise<boolean> {
 		throw new customError("هناك خطأ، هل لديك تصريح للوصول إلى هذه الصفحة؟", 500);
 	}
 }
-export async function getAuthorData() {
+export async function getAuthorId() {
 	const userData:sessionData = await getDataFromSession()
 	if(!userData)
 		throw new customError("هناك خطأ، هل لديك تصريح للوصول إلى هذه الصفحة؟", 500);
 	const isauthor = await isAuthor();
 	if (!isauthor)
 		throw new customError("ليس لديك تصريح للوصول إلى هذه الصفحة، فأنت لست مؤلفًا", 401)
-	const author: authorData = { id: userData.id, username: userData.username }
-	return author
+	const authorId = userData.id;
+	return authorId
 }

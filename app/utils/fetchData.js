@@ -1,6 +1,8 @@
 import connect from "@/app/utils/connect";
 import Category from "@/app/models/CategoryModel";
 import Article from "@/app/models/articleModel";
+import Opinion from "@/app/models/opinionModel"
+import User from "@/app/models/userModel"
 
 export async function getSubCategories() {
 	try {
@@ -37,31 +39,25 @@ export async function getCategory(category) {
 		throw new Error(error);
 	}
 }
-export async function GetArticlesCategory(category) {
+export async function GetArticlesCategory(category, page) {
 	try {
+		const skip = page == 0 ? 0 : (page - 1) * 10
 		await connect();
-		const newcategory = await Category.findOne({ category: category })
-			.populate("articles");
-		if (!newcategory)
+		const allArticles = await Article.find({ category: category }).limit(10).skip(skip).lean({virtuals:true}).sort({ publishedAt: -1 });
+		if (!allArticles)
 			return;
-		const allArticles = newcategory.articles.reverse();
+		// const allArticles = newCategory.articles.reverse();
 		return allArticles;
 	} catch (error) {
 		console.error("database error : ", error);
 		throw new Error(error);
 	}
 }
-
-export async function fetchArticles(categories) {
+export async function fetchLatestArticles(categories) {
 	try {
 		await connect();
-		const allArticles = [];
-		for (let category of categories) {
-			const article = await Article.findOne({ category: category.category })
-				.sort({ publishedAt: -1 })
-			allArticles.push(article);
-		}
-		return allArticles;
+		const latestArticles = await Article.find({ featured: false }).limit(4).sort({ publishedAt: -1 })
+		return latestArticles;
 	} catch (error) {
 		console.error("database error : ", error);
 		throw new Error(error);
@@ -89,4 +85,11 @@ export async function fetchLatestCategory(category) {
 		console.error(err);
 		throw new Error(err.message);
 	}
+}
+
+export async function fetchAllOpinions() {
+	const allOpinions = await Opinion.find({}).limit(15).populate("author", "Avatar username").lean()
+	if (!allOpinions)
+		return null;
+	return allOpinions;
 }

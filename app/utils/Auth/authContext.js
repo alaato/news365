@@ -6,7 +6,7 @@ export const AuthProvider = ({ children, isAuth }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(isAuth);
 	const [isAuthor, setIsAuthor] = useState(false);
 	useEffect(() => {
-		fetch("/api/user/isauthor/").then(response => setIsAuthor(response.ok));
+		fetch("/api/user/is-an-author/").then(response => setIsAuthor(response.ok));
 	}, [isAuthenticated])
 
 	// Functions to update authentication state

@@ -2,20 +2,20 @@ import { Suspense } from 'react'
 import NewsGrid from './NewsGrid';
 import NewsLine from './NewsLine';
 import { NewsGridSkeleton, NewsLineSkeleton } from "../skeleton/skeletons.jsx"
-import { getSubCategories } from '@/app/utils/fetchData';
+import { getCategoriesNames, getSubCategories } from '@/app/utils/fetchData';
 const Home = async () => {
 	const subs = await getSubCategories();
+	const allCategories = await getCategoriesNames();
 	return (
 		<>
 			<Suspense fallback={<NewsGridSkeleton />}>
-				<NewsGrid categories={subs} />
+				<NewsGrid categories={allCategories} />
 			</Suspense>
 			<Suspense fallback={<NewsLineSkeleton />}>
 				{subs.map((sub, i) => (
-					<NewsLine key={i} title={sub.category} />
+					<NewsLine key={sub} title={sub.category} />
 				))}
 			</Suspense>
-
 		</>
 	)
 }

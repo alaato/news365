@@ -58,7 +58,7 @@ const Tiptap = ({ onChange, content }) => {
     },
     editorProps: {
       attributes: {
-        class: 'editor',
+        class: 'editor ProseMirror',
       },
     },
   })

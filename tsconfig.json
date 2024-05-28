@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/error.js"  ],
+, "app/error.js", "app/utils/serverActions/serverActions.js"  ],
   "exclude": [
     "node_modules"
   ]

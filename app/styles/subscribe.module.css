@@ -38,3 +38,10 @@
   text-align: start;
   unicode-bidi: plaintext;
 }
+.checkbox
+{
+  margin-top: 12px;
+  width: 25px;
+  color: green;
+  height: 25px;
+}

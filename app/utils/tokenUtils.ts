@@ -20,7 +20,7 @@ export async function getDataFromSession() : Promise<sessionData>{
 		const { payload } = await jwtVerify(session, encodedKey, {
 			algorithms: ["HS256"],
 		});
-		const sessionData = payload as unknown as sessionData 
+		const sessionData = payload as unknown as sessionData
 		return sessionData;
 	} catch (error) {
 		console.log(error);

@@ -10,7 +10,6 @@ interface article {
 }
 export default async function Post({ sx, className, article }) {
 	const { title, id, category }: article = article;
-	//   console.log(article.toObject({ virtuals: true }))
 	return (
 		<Card sx={sx} className={className}>
 			<CardCover>
@@ -19,7 +18,7 @@ export default async function Post({ sx, className, article }) {
 					fill
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
 					quality={50}
-					src={article.thumbnail ? article.thumbnail : "/news.jpg"}
+					src={article.thumbnail ? article.thumbnail : article.img? article.img : "/news.jpg"}
 					alt={title}
 				/>
 			</CardCover>

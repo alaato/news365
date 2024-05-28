@@ -71,7 +71,7 @@ export default function Hamburger({
 						</ListItemButton>
 					))}
 					<ListItemButton
-						sx={{ "&:hover": { cursor: "default", backgroundColor: "white" } }}
+						sx={{ ":hover": { cursor: "default", backgroundColor: "white" } }}
 					>
 						<AuthButtons isHamburger={"true"}/>
 					</ListItemButton>

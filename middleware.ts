@@ -5,7 +5,7 @@ import { isAuthor } from "./app/utils/Auth/authinticationUtils";
 export async function  middleware(request: NextRequest) {
 	const session = request.cookies.get("session")?.value;
 	const isAuthenticated = session? true: false;
-	const currentPath = request.nextUrl.pathname;	
+	const currentPath = request.nextUrl.pathname;
 	const isAnAuthor = isAuthor();
 	if(!isAuthenticated && (currentPath === '/logout'))
 		return NextResponse.redirect(new URL("/", request.url));
@@ -14,6 +14,8 @@ export async function  middleware(request: NextRequest) {
 	if((!isAuthenticated || !isAnAuthor) && (currentPath === "/profile/my-articles"))
 		return NextResponse.redirect(new URL("/", request.url));
 	if (!isAuthenticated && currentPath.startsWith("/admin"))
+		return NextResponse.redirect(new URL("/", request.url));
+	if (!isAuthenticated && currentPath.startsWith("/profile"))
 		return NextResponse.redirect(new URL("/", request.url));
 }
 

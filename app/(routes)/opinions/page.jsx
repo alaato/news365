@@ -1,19 +1,20 @@
 import React from 'react'
-import Opinion from '../../components/opinios/Opinion'
-const Opinions = () => {
-  return (
-    <>
-    <section className='container flex-col'>
-        <h1 className='header'>أراء</h1>
-    <div className='container flex'>
-       < Opinion className = "opinion"/>
-       < Opinion className = "opinion"/>
-       < Opinion className = "opinion"/>
-    </div>
-    </section>
-    
-    </>
-  )
+import AddButton from "@/app/components/opinions/CreateOpinionModal"
+import OpinionsGrid from "@/app/components/opinions/opinionGrid"
+
+const Opinions = async () => {
+	return (
+		<>
+			<section className='container flex-col'>
+				<h1 className='header'>أراء</h1>
+				<div className='container'>
+					<OpinionsGrid></OpinionsGrid>
+					<AddButton></AddButton>
+				</div>
+			</section>
+
+		</>
+	)
 }
 
 export default Opinions
