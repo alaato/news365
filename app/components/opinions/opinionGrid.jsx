@@ -3,8 +3,8 @@ import Masonry from '@mui/lab/Masonry';
 import Opinion from "./Opinion"
 import { fetchAllOpinions } from '@/app/utils/fetchData'
 
-export default async function OpinionGrid() {
-	const allOpinions = await fetchAllOpinions();
+export default async function OpinionGrid({opinions}) {
+	const allOpinions = opinions;
 	if(!allOpinions)
 		return(<></>)
 	allOpinions.forEach((opinion)=> {

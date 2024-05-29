@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Article = require('../../models/articleModel');
-const Category = require('../../models/CategoryModel');
-const categories = ["تحليلات","مصورة", "محلي", "دولي"];
+const Category = require('../../models/categoryModel');
+const categories = ["صحف و مجلات","تحليلات","مصورة", "محلي", "دولي"];
 
 main()
   .then(() => SeedDB())

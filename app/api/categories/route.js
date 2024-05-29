@@ -1,5 +1,5 @@
 import connect from "@/app/utils/connect";
-import Category from "@/app/models/CategoryModel";
+import Category from "@/app/models/categoryModel";
 export async function GET() {
     try {
         await connect();

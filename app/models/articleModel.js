@@ -19,9 +19,7 @@ articleSchema.virtual('thumbnail').get(function () {
 });
 
 articleSchema.statics.setFeaturedArticle = async function (articleId) {
-	// Reset featured flag for all articles
 	await this.updateMany({}, { featured: false });
-	// Set the specified article as featured
 	return this.findByIdAndUpdate(articleId, { featured: true }, { new: true });
 };
 articleSchema.plugin(mongooseLeanVirtuals);

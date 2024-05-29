@@ -1,5 +1,5 @@
 import connect from "@/app/utils/connect";
-import Category from "@/app/models/CategoryModel";
+import Category from "@/app/models/categoryModel";
 import Article from "@/app/models/articleModel";
 import Opinion from "@/app/models/opinionModel"
 import User from "@/app/models/userModel"
@@ -7,7 +7,7 @@ import User from "@/app/models/userModel"
 export async function getSubCategories() {
 	try {
 		await connect();
-		const allCategories = await Category.find({}, { category: 1, _id: 0 }).lean()
+		const allCategories = await Category.find({category:{$nin:["تحقيقات", "صحف و مجلات"]}}, { category: 1, _id: 0 }).lean()
 			.sort({ publishedAt: -1 })
 			.limit(4);
 		return allCategories;
