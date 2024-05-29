@@ -5,16 +5,22 @@ import PagePagination from "@/app/components/General/PagePagination"
 import Opinion from '@/app/models/opinionModel'
 import { getDataFromSession } from '@/app/utils/tokenUtils'
 import { Suspense } from 'react'
+
+async function getLimitedOpinions(skip){
+	const opinions = await Opinion.find().skip(skip).limit(9).sort({ id: -1 }).lean({ virtuals: true }).populate("author", "Avatar username")
+	opinions.forEach((opinion)=> {
+		opinion._id = opinion._id.toString()
+		opinion.author._id= opinion.author._id.toString();
+	});
+	return opinions;
+}
 const Opinions = async ({ searchParams }) => {
 	const { page } = searchParams;
-	const userData = await getDataFromSession();
-	const id = userData ? userData.id : null;
 	let skip = !page ? 0 : (page - 1) * 9
 	if (skip == -1) { skip = 0; }
-	const opinions = await Opinion.find().skip(skip).limit(9).sort({ id: -1 }).lean({ virtuals: true }).populate("author", "Avatar username")
 	const opinionCount = await Opinion.countDocuments()
-	console.log(opinionCount)
 	const PageCount = Math.ceil(opinionCount / 10);
+	const opinions = await getLimitedOpinions(skip);
 	return (
 		<>
 			<section className='container flex-col'>

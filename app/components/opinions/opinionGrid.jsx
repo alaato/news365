@@ -7,11 +7,6 @@ export default async function OpinionGrid({opinions}) {
 	const allOpinions = opinions;
 	if(!allOpinions)
 		return(<></>)
-	allOpinions.forEach((opinion)=> {
-		opinion._id = opinion._id.toString()
-		opinion.author._id= opinion.author._id.toString();
-	});
-
 	return (
 		<Masonry
 		sequential
