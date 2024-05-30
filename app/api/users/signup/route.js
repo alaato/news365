@@ -6,6 +6,7 @@ import sendEmail from "@/app/utils/mail";
 import { render } from '@react-email/render';
 import Email from "@/app/components/email";
 import jwt from "jsonwebtoken"
+import { revalidatePath } from "next/cache";
 
 export async function POST(req) {
 	try {
@@ -33,6 +34,7 @@ export async function POST(req) {
 			const emailHtml = render(<Email url={message} username={newUser.username} />, { pretty: true });
 			sendEmail(newUser.email, "Verify Email", emailHtml)
 		});
+		revalidatePath("/(route)/(auth)/signup")
 	return NextResponse.json({ message: " تم انشاء الحساب. الرجاء تفعيل الحساب من البريد الالكتروني " }, { status: 201 });
 } catch (error) {
 	console.log(error);
