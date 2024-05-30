@@ -1,7 +1,7 @@
 import connect from "@/app/utils/connect";
 import User from "@/app/models/userModel";
 import { NextResponse } from "next/server";
-import bcryptjs from "bcryptjs"
+import bcrypt from "bcrypt";
 import { makeToken } from "../../../utils/tokenUtils";
 
 export async function POST(req)
@@ -11,13 +11,13 @@ export async function POST(req)
         const body = await req.json();
         const {email, password} = body
         const user = await User.findOne({email});
-        const match = await bcryptjs.compare(password, user.password)
-        if(!user)
+		if(!user)
             return NextResponse.json({message: "لا يوجد مستخدم بهذا الايميل"}, {status: 400});
+		if(!user.verified)
+            return NextResponse.json({message: "الرجاء تفعيل الحساب"}, {status: 400});
+        const match = await bcrypt.compare(password, user.password)
         if(!match)
             return NextResponse.json({message: "البيانات خطأ, الرجاء ادخال بيانات  صحيحة"}, {status: 400});
-        if(!user.verified)
-            return NextResponse.json({message: "الرجاء تفعيل الحساب"}, {status: 400});
 
         const tokenData = {
             id: user.id,
