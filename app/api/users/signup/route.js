@@ -33,7 +33,7 @@ export async function POST(req)
                         await newUser.save();
                         const message = `http://localhost:3000/verify/${newUser.id}/${newUser.verifiedToken}`;
                         const emailHtml = render(<Email url={message} username={newUser.username} />,   {pretty: true});
-                        sendEmail(newUser.email, "Verify Email", emailHtml)
+                        await sendEmail(newUser.email, "Verify Email", emailHtml)
                         console.log(newUser)
                 });
             }

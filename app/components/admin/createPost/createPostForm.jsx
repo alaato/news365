@@ -31,7 +31,7 @@ const CreatePostForm = ({ categories, author }) => {
 			const article = await response.json()
 			console.log(article)
 			setAlert({on:true, message:"تم حفظ المقال", type:"success"})
-			// router.push(`/news/${article.category}/${article._id}`)
+			router.push(`/news/${article.category}/${article._id}`)
 		}
 			else
 				setAlert({on:true, message:"هناك خطأ ما", type:"danger"})

@@ -20,7 +20,7 @@ const CloudUpload = ({ children, onChange, value}) => {
 	return (
 		<div>
 			<FormLabel>الصورة</FormLabel>
-			<Input onChange={change} value={value} placeholder="رابط الصورة" />
+			<Input defaultValue={""} onChange={change} value={value} placeholder="رابط الصورة" />
 			<CldUploadWidget
 				onSuccess={handleSubmit}
 				uploadPreset="articles_images">
