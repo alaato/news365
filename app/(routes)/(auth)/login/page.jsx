@@ -32,6 +32,7 @@ export default function Login() {
 	const [isLoading, setLoading] = useState(false);
 	const { login, setIsAuthor } = useAuth();
 	const onSubmit = async data => {
+		setLoading(true)
 		const bodyJson = JSON.stringify(data);
 		const response = await fetch('/api/users/login', {
 			method: 'POST',
