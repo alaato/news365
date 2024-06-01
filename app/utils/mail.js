@@ -2,15 +2,19 @@
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, subject, html) => {
-	const transporter = nodemailer.createTransport({
-		host: "smtp.zoho.eu",
-		port: 465,
-		secure: true,
-		auth: {
-			user: process.env.ZOHO_EMAIL,
-			pass: process.env.ZOHO_PASSWORD,
-		},
+	const transporter = await new Promise((resolve, reject) => {
+		const transporter = nodemailer.createTransport({
+			host: "smtp.zoho.eu",
+			port: 465,
+			secure: true,
+			auth: {
+				user: process.env.ZOHO_EMAIL,
+				pass: process.env.ZOHO_PASSWORD,
+			},
+		});
+		resolve(transporter);
 	});
+
 	let mailOptions = {
 		from: process.env.ZOHO_EMAIL,
 		to: email,
@@ -23,8 +27,8 @@ const sendEmail = async (email, subject, html) => {
 				console.log(error);
 				reject(error)
 			}
-			else{
-				console.log('Message sent: %s', info.messageId);
+			else {
+				console.log('Message sent: %s', info.accepted);
 				resolve(info)
 			}
 		});
