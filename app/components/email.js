@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Html } from '@react-email/html';
-import { Container, Button, Section, Column, Row, Text  } from "@react-email/components";
+import { Button, Section, Column, Row, Text  } from "@react-email/components";
 import { button, container } from '../styles/emailStyles';
 
 export default function Email(props) {

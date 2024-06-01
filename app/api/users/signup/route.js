@@ -30,11 +30,11 @@ export async function POST(req) {
 				verifiedTokenExpires: Date.now() + 7200000
 			});
 			await newUser.save();
-			const message = `/verify/${newUser.id}/${newUser.verifiedToken}`;
+			const message = `verify/${newUser.id}/${newUser.verifiedToken}`;
 			const emailHtml = render(<Email url={message} username={newUser.username} />, { pretty: true });
 			sendEmail(newUser.email, "Verify Email", emailHtml)
 		});
-		revalidatePath("/(route)/(auth)/signup")
+		revalidatePath("/")
 	return NextResponse.json({ message: " تم انشاء الحساب. الرجاء تفعيل الحساب من البريد الالكتروني " }, { status: 201 });
 } catch (error) {
 	console.log(error);
