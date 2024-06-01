@@ -30,11 +30,11 @@ export async function POST(req) {
 				verifiedTokenExpires: Date.now() + 7200000
 			});
 			await newUser.save();
-			const message = `verify/${newUser.id}/${newUser.verifiedToken}`;
+			const message = `https://news365-three.vercel.app/verify/${newUser.id}/${newUser.verifiedToken}`;
 			const emailHtml = render(<Email url={message} username={newUser.username} />, { pretty: true });
-			sendEmail(newUser.email, "Verify Email", emailHtml)
+			await sendEmail(newUser.email, "Verify Email", emailHtml)
 		});
-		revalidatePath("/")
+		revalidatePath('/', 'layout')
 	return NextResponse.json({ message: " تم انشاء الحساب. الرجاء تفعيل الحساب من البريد الالكتروني " }, { status: 201 });
 } catch (error) {
 	console.log(error);
