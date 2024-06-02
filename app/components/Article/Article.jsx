@@ -9,7 +9,7 @@ const getArticle = async (id) => {
 	try {
 		await connect();
 		const article = await Article.findById(id).lean({virtuals:true}).populate("author", "username Avatar");
-		article.author._id = article.author._id.toString();
+		// article.author._id = article.author._id.toString();
 		if (article === null) return notFound();
 		return article;
 	} catch (error) {
@@ -19,13 +19,14 @@ const getArticle = async (id) => {
 }
 const article = async ({ id }) => {
 	const article = await getArticle(id);
+	const {author} = article;
 	return (
 		<article className='article container'>
 			<section className='article-header'>
 				<h1 className='article-title'>{article.title}</h1>
 				<div className='author'>
-					<Avatar alt={article.author.username} src={article.author.Avatar} size="lg"></Avatar>
-					<div>{article.author.username}</div>
+					<Avatar alt={article.author?.username} src={author?.Avatar} size="lg"></Avatar>
+					<div>{article.author?.username}</div>
 				</div>
 				<h3 className='publish-date'> نشر في تاريخ : {article.publishedAt.toLocaleString('en-US')}</h3>
 				<div className='article-image'>
