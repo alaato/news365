@@ -1,6 +1,6 @@
 "use server"
 import jwt from 'jsonwebtoken';
-import sendEmail from '@/app/utils/mail';
+import sendEmail from '@/app/utils/emails/mail';
 import Email from '@/app/components/email';
 import { render } from '@react-email/render';
 import User from "../../models/userModel"
