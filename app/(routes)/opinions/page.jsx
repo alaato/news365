@@ -4,11 +4,12 @@ import OpinionsGrid from "@/app/components/opinions/opinionGrid"
 import PagePagination from "@/app/components/General/PagePagination"
 import Opinion from '@/app/models/opinionModel'
 import { Suspense } from 'react'
+import connect from '@/app/utils/connect'
 
 async function getLimitedOpinions(skip){
-	const opinions = await Opinion.find().skip(skip).limit(9).sort({ id: -1 }).lean({ virtuals: true }).populate("author", "Avatar username")
+	await connect();
+	const opinions = await Opinion.find().skip(skip).limit(9).sort({ _id: -1 }).lean({ virtuals: true }).populate("author", "Avatar username")
 	opinions.forEach((opinion)=> {
-		console.log(opinion)
 		opinion._id = opinion._id.toString()
 		opinion.author= opinion.author?._id?.toString();
 	});
