@@ -22,7 +22,7 @@ export async function GenerateNewToken(id: string) {
 		await user.save();
 		const message = `http://localhost:3000/verify/${user.id}/${user.verifiedToken}`;
 		const emailHtml = render(<Email url={message} username={user.username} />, { pretty: true });
-		sendEmail(user.email, "Verify Email", emailHtml)
+		await sendEmail(user.email, "Verify Email", emailHtml)
 		return { message: " تم ارسال بريد التاكيد ,الرجاء تفعيل الحساب", status: "success" };
 	} catch (error) {
 		console.log(error);

@@ -28,7 +28,6 @@ export async function POST(req) {
 			verifiedToken: jwt.sign(email, 'token'),
 			verifiedTokenExpires: Date.now() + 7200000
 		});
-		await newUser.save();
 		const message = `https://news365-three.vercel.app/verify/${newUser.id}/${newUser.verifiedToken}`;
 		const emailHtml = render(<Email url={message} username={newUser.username} />, { pretty: true });
 		const sent = await sendEmail(newUser.email, "التحقق من البريد الإلكتروني", emailHtml)
@@ -36,6 +35,7 @@ export async function POST(req) {
 			await User.findByIdAndDelete(newUser._id)
 			throw new Error("message was not sent")
 		}
+		await newUser.save();
 		revalidatePath('/', 'layout')
 		return NextResponse.json({ message: " تم انشاء الحساب. الرجاء تفعيل الحساب من البريد الالكتروني " }, { status: 201 });
 	} catch (error) {

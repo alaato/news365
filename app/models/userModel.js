@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
+
 const userSchema = new Schema({
     username:{
         type: String,
@@ -36,5 +38,7 @@ const userSchema = new Schema({
 	bio : String,
 
 })
+userSchema.plugin(mongooseLeanVirtuals);
+
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 module.exports = User;
